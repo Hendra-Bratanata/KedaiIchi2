@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layoutHome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".HOME"
+        android:weightSum="5"
+        android:orientation="horizontal">
+
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="99dp"
+                    android:layout_height="88dp"
+                    android:src="@drawable/kedaiichi"
+                    android:layout_margin="5dp"/>
+            <TextView
+                    android:layout_width="93dp"
+                    android:layout_height="wrap_content"
+                    android:text="E-Billing"
+                    android:layout_gravity="center"
+                    android:textSize="17sp"
+                    android:textStyle="bold|italic"
+                    android:textColor="#000"
+
+            />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+        >
+
+            <Button
+
+                    android:id="@+id/btnPaket"
+                    android:layout_width="match_parent"
+                    android:text="Paket"
+                    android:textSize="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="1dp"
+            />
+            <Button
+                    android:id="@+id/btnMakanan"
+                    android:text="Makanan"
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:layout_below="@+id/btnPaket"
+            />
+            <Button
+                    android:id="@+id/btnMinuman"
+                    android:text="Minuman"
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btnMakanan"
+            />
+            <Button
+
+                    android:layout_below="@+id/btnMinuman"
+                    android:id="@+id/btnSnack"
+                    android:text="Snack"
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+            />
+            <Button
+
+                    android:layout_below="@+id/btnSnack"
+                    android:id="@+id/btndll"
+                    android:text="dll"
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+            />
+            <Button
+
+                    android:text="NEW"
+                    android:textSize="20dp"
+                    android:layout_below="@+id/btnPrint"
+                    android:id="@+id/btnNew"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+            />
+            <Button
+                    android:layout_below="@+id/btndll"
+                    android:id="@+id/btnPrint"
+                    android:text="Print"
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+            />
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bayar"
+                    style="@style/Base.Widget.AppCompat.Button.Colored"
+                    android:textSize="30sp"
+                    android:id="@+id/btnBayar"
+                    android:layout_alignParentBottom="true"/>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swapTengah"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvTengah"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <RelativeLayout
+
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+        <Button android:layout_alignParentRight="true"
+                android:id="@+id/btnCari"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_find_in_page_black_24dp"
+
+                android:layout_alignParentEnd="true"/>
+        <EditText
+                android:hint="Cari Menu"
+                android:id="@+id/edtCari"
+                android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_toLeftOf="@+id/btnCari"
+                  android:layout_above="@+id/rvInvoice"
+                  android:layout_alignParentLeft="true"
+                  android:layout_toStartOf="@+id/btnCari"
+                  android:layout_alignParentStart="true"/>
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvInvoice"
+                android:layout_below="@+id/btnCari"
+                android:layout_above="@id/tvtotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        />
+        <LinearLayout
+                android:id="@+id/tvtotal"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+      
+
+            <LinearLayout
+
+
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView android:layout_width="100dp"
+                          android:layout_height="wrap_content"
+                          android:text="TOTAL"
+                          android:textColor="#000"
+                          android:textStyle="bold"
+                          android:textSize="20sp"
+
+                />
+                <TextView
+                        android:id="@+id/tvTotalHarga"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:text="0"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textAlignment="center"
+                />
+
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView android:layout_width="100dp"
+                          android:layout_height="wrap_content"
+                          android:text="BAYAR"
+                          android:textColor="#000"
+                          android:textStyle="bold"
+                          android:textSize="20sp"
+
+                />
+                <EditText
+                        android:id="@+id/tvBayar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:textStyle="bold"
+                        android:text="0"
+                        android:textSize="20sp"
+                />
+
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView android:layout_width="100dp"
+                          android:layout_height="wrap_content"
+                          android:text="KEMBALI"
+                          android:textColor="#000"
+                          android:textStyle="bold"
+                          android:textSize="20sp"
+
+                />
+                <TextView
+                        android:id="@+id/tvKebalian"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:text="0"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textAlignment="center"
+                />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

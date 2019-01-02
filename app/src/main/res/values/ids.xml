@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="imgMakanan" type="id"/>
+    <item name="tvNamaMakanan" type="id"/>
+    <item name="tvHargaMakanan" type="id"/>
+    <item name="imgPesanan" type="id"/>
+    <item name="tv_pesanan" type="id"/>
+    <item name="tvHarga" type="id"/>
+    <item name="jumlah" type="id"/>
+</resources>
