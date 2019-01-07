@@ -1,9 +1,8 @@
-package com.ichirotech.kedaiichi
+package com.ichirotech.kedaiichi.Fragment
 
 
 import android.content.DialogInterface
 import android.database.sqlite.SQLiteConstraintException
-import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -11,11 +10,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import com.google.gson.Gson
+import com.ichirotech.kedaiichi.*
+import com.ichirotech.kedaiichi.Adapter.MenuAdapter
+import com.ichirotech.kedaiichi.MODEL.Makanan
+import com.ichirotech.kedaiichi.MODEL.Pesanan
+import com.ichirotech.kedaiichi.PRESENTER.MakananPresenter
+import com.ichirotech.kedaiichi.REST_API.ApiReposirtory
+import com.ichirotech.kedaiichi.VIEW.ViewMakanan
 import kotlinx.android.synthetic.main.fragment_keranjang.*
-import org.jetbrains.anko.ctx
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
@@ -24,12 +28,12 @@ import org.jetbrains.anko.support.v4.selector
 import org.jetbrains.anko.support.v4.toast
 
 
-class Keranjang : Fragment(), ViewMakanan {
+class PesananFragment : Fragment(), ViewMakanan {
     lateinit var presenter: MakananPresenter
     lateinit var mutableList: MutableList<Makanan>
     lateinit var gson: Gson
     lateinit var apiReposirtory: ApiReposirtory
-    lateinit var adapter: MenuMakananAdapter
+    lateinit var adapter: MenuAdapter
 
 
     override fun showData(data: List<Makanan>) {
@@ -49,7 +53,7 @@ class Keranjang : Fragment(), ViewMakanan {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mutableList = mutableListOf()
-        adapter = MenuMakananAdapter(mutableList ,{
+        adapter = MenuAdapter(mutableList, {
 
             Toast.makeText(requireContext(), "YAng anda pilih adalah" + it.nama, Toast.LENGTH_SHORT).show()
             val list = listOf("Ya", "Tidak")
@@ -63,7 +67,7 @@ class Keranjang : Fragment(), ViewMakanan {
                     tambahPesanan(it)
                 }
             }
-        },{})
+        }, {})
 
         rvMakanan.layoutManager = LinearLayoutManager(requireContext())
         rvMakanan.adapter = adapter

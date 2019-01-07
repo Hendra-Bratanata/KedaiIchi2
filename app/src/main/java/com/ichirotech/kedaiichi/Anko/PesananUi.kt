@@ -1,10 +1,11 @@
-package com.ichirotech.kedaiichi
+package com.ichirotech.kedaiichi.Anko
 
 import android.graphics.Color
 import android.graphics.Typeface
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import com.ichirotech.kedaiichi.R
 import org.jetbrains.anko.*
 import org.jetbrains.anko.cardview.v7.cardView
 
@@ -37,7 +38,7 @@ class PesananUi<T> : AnkoComponent<T> {
                             }.lparams(matchParent, wrapContent) {
                                 topMargin = dip(5)
                                 leftMargin = dip(5)
-                            }
+                        }
                             textView {
                                 id = R.id.tvHarga
                                 textSize = 20f

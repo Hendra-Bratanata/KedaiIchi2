@@ -1,4 +1,4 @@
-package com.ichirotech.kedaiichi
+package com.ichirotech.kedaiichi.MODEL
 
 data class Pesanan(
     val idPesana:Long,

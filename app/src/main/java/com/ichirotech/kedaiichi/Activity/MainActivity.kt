@@ -1,24 +1,28 @@
-package com.ichirotech.kedaiichi
+package com.ichirotech.kedaiichi.Activity
 
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.ichirotech.kedaiichi.PrintLibrary.BluetoothPrinter
+import com.ichirotech.kedaiichi.Adapter.MenuAdapter
+import com.ichirotech.kedaiichi.Fragment.HomeFragmen
+import com.ichirotech.kedaiichi.Fragment.PesananFragment
+import com.ichirotech.kedaiichi.PRESENTER.MakananPresenter
+import com.ichirotech.kedaiichi.MODEL.Makanan
+import com.ichirotech.kedaiichi.R
+import com.ichirotech.kedaiichi.VIEW.ViewMakanan
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ViewMakanan {
 
     var menus: MutableList<Makanan> = mutableListOf()
     lateinit var makananPresenter: MakananPresenter
-    lateinit var makananAdapter: MenuMakananAdapter
+    lateinit var adapter: MenuAdapter
 
 
 
     override fun showData(data: List<Makanan>) {
         menus.clear()
         menus.addAll(data)
-        makananAdapter.notifyDataSetChanged()
+        adapter.notifyDataSetChanged()
     }
 
 //    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -64,14 +68,19 @@ class MainActivity : AppCompatActivity(), ViewMakanan {
 
     private fun loadHomeFragmen() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container,HomeFragmen(),HomeFragmen::class.java.simpleName)
+            .replace(
+                R.id.main_container,
+                HomeFragmen(),
+                HomeFragmen::class.java.simpleName)
             .commit()
     }
 
     fun loadKeranjangFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.main_container, Keranjang(), Keranjang::class.java.simpleName)
+                .replace(
+                    R.id.main_container,
+                    PesananFragment(), PesananFragment::class.java.simpleName)
                 .commit()
         }
 

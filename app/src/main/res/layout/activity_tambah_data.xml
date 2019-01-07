@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        tools:context=".Activity.TambahData"
+>
+    <android.support.v7.widget.CardView
+            app:cardCornerRadius="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Barang\t\t\t:"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#000"
+
+                    />
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="italic"
+                            android:id="@+id/edtNamaBarang"
+                            android:textSize="20sp"
+                            android:textColor="#000"
+                            android:hint="Masukan Nama Barang"/>
+
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Harga Barang\t\t\t:"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#000"
+
+                    />
+                    <EditText
+                            android:id="@+id/edtHargaBarang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="italic"
+                            android:textSize="20sp"
+                            android:textColor="#000"
+                            android:hint="Masukan Harga barang"/>
+
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jenis Barang\t\t\t\t:"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#000"
+
+                    />
+                    <RadioGroup
+                            android:id="@+id/rg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                        <RadioButton
+                                android:id="@+id/rbPaket"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Paket"
+                                />
+                        <RadioButton
+                                android:id="@+id/rbMakanan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Makanan"/>
+                        <RadioButton
+                                android:id="@+id/rbMinuman"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Minuman"/>
+                        <RadioButton
+                                android:id="@+id/rbSnack"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Snack"/>
+                        <RadioButton
+                                android:id="@+id/rbDll"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Dll"/>
+
+
+                    </RadioGroup>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+                <Button
+                        android:id="@+id/btnInsertDatabase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Insert"
+                    android:layout_margin="5dp"
+            />
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                />
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                />
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                />
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_margin="5dp"
+                />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+</ScrollView>

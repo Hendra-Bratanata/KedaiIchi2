@@ -2,6 +2,7 @@ package com.ichirotech.kedaiichi
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import com.ichirotech.kedaiichi.MODEL.Pesanan
 import org.jetbrains.anko.db.*
 
 class PesananDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "Pesanan.db", null, 1) {

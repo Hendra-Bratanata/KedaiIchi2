@@ -1,4 +1,4 @@
-package com.ichirotech.kedaiichi
+package com.ichirotech.kedaiichi.Fragment
 
 
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.ichirotech.kedaiichi.R
 
 
 // TODO: Rename parameter arguments, choose names that match

@@ -1,27 +1,32 @@
-package com.ichirotech.kedaiichi
+package com.ichirotech.kedaiichi.Activity
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.database.sqlite.SQLiteConstraintException
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
 import com.google.gson.Gson
+import com.ichirotech.kedaiichi.*
+import com.ichirotech.kedaiichi.Adapter.MenuAdapter
+import com.ichirotech.kedaiichi.Adapter.PesananAdapter
+import com.ichirotech.kedaiichi.MODEL.Makanan
+import com.ichirotech.kedaiichi.MODEL.Pesanan
+import com.ichirotech.kedaiichi.PRESENTER.MakananPresenter
 import com.ichirotech.kedaiichi.PrintLibrary.BluetoothPrinter
+import com.ichirotech.kedaiichi.REST_API.ApiReposirtory
+import com.ichirotech.kedaiichi.VIEW.ViewMakanan
 import kotlinx.android.synthetic.main.activity_home.*
-import org.jetbrains.anko.alert
+import org.jetbrains.anko.*
 import org.jetbrains.anko.db.*
-import org.jetbrains.anko.noButton
 import org.jetbrains.anko.support.v4.onRefresh
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.yesButton
 import java.io.File
 import java.io.OutputStream
 import java.util.*
@@ -32,13 +37,16 @@ class HOME : AppCompatActivity(), ViewMakanan {
     override fun showData(data: List<Makanan>) {
 
         swapTengah.isRefreshing = false
+        loading.visibility=View.GONE
         listMenu.clear()
         listMenu.addAll(data)
+        rvTengah.smoothScrollToPosition(0)
         adapterTengah.notifyDataSetChanged()
+
     }
 
-    lateinit var adapterTengah: MenuMakananAdapter
-    lateinit var adapterKanan: HomeAdapter
+    lateinit var adapterTengah: MenuAdapter
+    lateinit var adapterKanan: PesananAdapter
     lateinit var listMenu: MutableList<Makanan>
     lateinit var listPesanan: MutableList<Pesanan>
     lateinit var pesanan: List<Pesanan>
@@ -55,20 +63,28 @@ class HOME : AppCompatActivity(), ViewMakanan {
     lateinit var btPrinter: BluetoothPrinter
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_home)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.hide()
+
+        val displa = DisplayMetrics()
+        val wm: WindowManager = applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        wm.defaultDisplay.getMetrics(displa)
+        val lebar = displa.widthPixels
+        val tinggi  = displa.heightPixels
+
+        Log.d("LEBAR","$lebar")
+        Log.d("TINGGI","$tinggi")
 
         btAdapter = BluetoothAdapter.getDefaultAdapter()
         btDevice = btAdapter.getRemoteDevice("DC:0D:30:29:6E:2E")
         btPrinter = BluetoothPrinter(btDevice)
         listMenu = mutableListOf()
         listPesanan = mutableListOf()
-        adapterTengah = MenuMakananAdapter(listMenu, {
+        adapterTengah = MenuAdapter(listMenu, {
             jumlahPesanan = 1
             tambahPesanan(it)
         },
@@ -79,7 +95,21 @@ class HOME : AppCompatActivity(), ViewMakanan {
                 ambilDataDatabase()
 
             })
-        adapterKanan = HomeAdapter(listPesanan)
+
+
+
+        adapterKanan = PesananAdapter(listPesanan,{
+                var makanan : Makanan = Makanan(it.id,it.nama,it.harga.toString(),it.gambar,null)
+            if (jumlahPesanan == 1) {
+                hapusPesananJumlah(makanan, 1)
+            }
+            ambilDataDatabase()
+        },{
+            var makanan : Makanan = Makanan(it.id,it.nama,it.harga.toString(),it.gambar,null)
+            jumlahPesanan = 1
+            tambahPesanan(makanan)
+
+        })
 
 
 
@@ -104,9 +134,18 @@ class HOME : AppCompatActivity(), ViewMakanan {
 
 
         }
+        if (lebar == 1280 && tinggi == 720){
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            rvTengah.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
 
-        rvTengah.layoutManager = LinearLayoutManager(this)
-        rvInvoice.layoutManager = LinearLayoutManager(this)
+        }else{
+
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            rvTengah.layoutManager = LinearLayoutManager(this)
+            rvInvoice.layoutManager = LinearLayoutManager(this)
+
+        }
+
         rvInvoice.adapter = adapterKanan
         rvTengah.adapter = adapterTengah
         apiReposirtory = ApiReposirtory()
@@ -119,21 +158,28 @@ class HOME : AppCompatActivity(), ViewMakanan {
             swapTengah.isRefreshing = false
         }
         btnMakanan.setOnClickListener {
+            loading.visibility = View.VISIBLE
             presenter.getMakanList()
+
         }
         btnMinuman.setOnClickListener {
+            loading.visibility = View.VISIBLE
             presenter.getMinumanList()
         }
         btnSnack.setOnClickListener {
+            loading.visibility = View.VISIBLE
             presenter.getSnackList()
         }
         btnPaket.setOnClickListener {
+            loading.visibility = View.VISIBLE
             presenter.getNasiList()
         }
         btndll.setOnClickListener {
+            loading.visibility = View.VISIBLE
             presenter.getDllList()
         }
         btnBayar.setOnClickListener {
+            loading.visibility = View.VISIBLE
             var bayar = tvBayar.text.toString()
             Bayar = bayar.toInt()
             var total = tvTotalHarga.text.toString()
@@ -141,6 +187,7 @@ class HOME : AppCompatActivity(), ViewMakanan {
             Kebalian = 0
 
             if (Bayar < Total) {
+                loading.visibility = View.GONE
                 alert("Hi,Coba Cek kembali input uang nya", "Uang Bayar Kurang") {
                     yesButton { toast("Ok…") }
                     noButton {}
@@ -157,6 +204,7 @@ class HOME : AppCompatActivity(), ViewMakanan {
                         Bayar.toString(),
                         Kebalian.toString()
                     )
+                    loading.visibility = View.GONE
                 }
                 alert("Cetak Invoice", "Invoice") {
                     yesButton {
@@ -170,19 +218,20 @@ class HOME : AppCompatActivity(), ViewMakanan {
         }
 
         btnCari.setOnClickListener {
-            var cari = edtCari.text.toString()
-             if (cari.equals("CACHE_CLEAR")) {
-                deleteMemoryData(this)
-            }else if(cari.equals("TAMBAH_DATA")){
-                 Toast.makeText(this,"Tambah Data",Toast.LENGTH_SHORT).show()
-                 frameCountainer.visibility = View.VISIBLE
-                 supportFragmentManager.beginTransaction()
-                     .add(R.id.frameCountainer,TambahDataFragment(),TambahDataFragment::class.java.simpleName)
-                     .commit()
 
-            }else if(cari.equals("TAMBAH_DATA")){
+            var cari = edtCari.text.toString()
+             if (cari.equals("CACHECLEAR")) {
+                deleteMemoryData(this)
+            }else if(cari.equals("DATABASE")){
+
+                 startActivity<TambahData>()
+
+
+
+            }else if(cari.equals("TAMBAH_")){
 
             }else{
+                 loading.visibility= View.VISIBLE
                 presenter.getCari(cari)
             }
 

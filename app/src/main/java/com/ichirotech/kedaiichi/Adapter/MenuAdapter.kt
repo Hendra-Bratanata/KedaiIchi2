@@ -1,4 +1,4 @@
-package com.ichirotech.kedaiichi
+package com.ichirotech.kedaiichi.Adapter
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -11,11 +11,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.ichirotech.kedaiichi.MODEL.Makanan
+import com.ichirotech.kedaiichi.R
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.*
 
-class MenuMakananAdapter(val menus: List<Makanan>, val Plus: (Makanan) -> Unit, val Min: (Makanan) -> Unit) :
-    RecyclerView.Adapter<MenuMakananAdapter.ViewHolder>() {
+class MenuAdapter(val menus: List<Makanan>, val Plus: (Makanan) -> Unit, val Min: (Makanan) -> Unit) :
+    RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
 
 //        return ViewHolder(MakananUi().createView(AnkoContext.create(p0.context,p0)))
@@ -56,42 +58,5 @@ class MenuMakananAdapter(val menus: List<Makanan>, val Plus: (Makanan) -> Unit, 
             }
 
         }
-    }
-
-    class MakananUi : AnkoComponent<ViewGroup> {
-        override fun createView(ui: AnkoContext<ViewGroup>): View {
-            return with(ui) {
-                linearLayout {
-                    lparams(width = matchParent, height = matchParent)
-                    padding = dip(16)
-                    orientation = LinearLayout.VERTICAL
-
-                    imageView {
-                        id = R.id.imgMakanan
-                        setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_home_black_24dp))
-
-                    }.lparams(width = matchParent, height = dip(300))
-
-
-                    textView {
-                        id = R.id.tvNamaMakanan
-                        textSize = 20f
-                        text = "Test"
-                        textColor = Color.BLACK
-
-                    }.lparams(width = matchParent, height = wrapContent)
-
-                    textView {
-                        id = R.id.tvHargaMakanan
-                        textSize = 20f
-                        text = "Test"
-                        setTypeface(Typeface.DEFAULT, Typeface.BOLD)
-                    }.lparams(width = matchParent, height = wrapContent)
-
-
-                }
-            }
-        }
-
     }
 }

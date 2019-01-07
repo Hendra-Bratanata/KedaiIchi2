@@ -1,4 +1,4 @@
-package com.ichirotech.kedaiichi
+package com.ichirotech.kedaiichi.Fragment
 
 
 import android.bluetooth.BluetoothAdapter
@@ -7,7 +7,6 @@ import android.content.res.Resources
 import android.database.sqlite.SQLiteConstraintException
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -16,25 +15,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
+import com.ichirotech.kedaiichi.Adapter.PesananAdapter
+import com.ichirotech.kedaiichi.MODEL.Pesanan
 import com.ichirotech.kedaiichi.PrintLibrary.BluetoothPrinter
+import com.ichirotech.kedaiichi.R
+import com.ichirotech.kedaiichi.database
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_keranjang.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.find
-import org.jetbrains.anko.support.v4.find
 import org.jetbrains.anko.support.v4.onRefresh
-import org.jetbrains.anko.support.v4.selector
-import org.jetbrains.anko.support.v4.toast
 import java.io.OutputStream
 
 
 class HomeFragmen : Fragment() {
     lateinit var mutableList: MutableList<Pesanan>
-    lateinit var adapter: HomeAdapter
+    lateinit var adapter: PesananAdapter
     lateinit var pesanan: List<Pesanan>
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
     lateinit var tvHargaTotal: TextView
@@ -69,7 +67,7 @@ class HomeFragmen : Fragment() {
         btPrinter = BluetoothPrinter(btDevice)
 
         mutableList = mutableListOf()
-        adapter = HomeAdapter(mutableList)
+//        adapter = PesananAdapter(mutableList)
         rvHomeFragment.layoutManager = LinearLayoutManager(requireContext())
         rvHomeFragment.adapter = adapter
 

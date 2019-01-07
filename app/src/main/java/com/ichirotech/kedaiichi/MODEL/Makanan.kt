@@ -1,4 +1,4 @@
-package com.ichirotech.kedaiichi
+package com.ichirotech.kedaiichi.MODEL
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,22 +1,31 @@
-package com.ichirotech.kedaiichi
+package com.ichirotech.kedaiichi.PRESENTER
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.google.gson.Gson
+import com.ichirotech.kedaiichi.Activity.TambahData
+import com.ichirotech.kedaiichi.MODEL.MakananRespons
+import com.ichirotech.kedaiichi.REST_API.ApiReposirtory
+import com.ichirotech.kedaiichi.REST_API.MenuApi
+import com.ichirotech.kedaiichi.VIEW.ViewMakanan
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
 class MakananPresenter(val view: ViewMakanan,
                        val gson: Gson,
-                       val apiReposirtory: ApiReposirtory){
+                       val apiReposirtory: ApiReposirtory
+){
 
     fun getMakanList(){
         doAsync {
             val data = gson.fromJson(apiReposirtory.doRequest(MenuApi.getMenuMakanan())
-                ,MakananRespons::class.java
+                , MakananRespons::class.java
             )
             uiThread {
                 view.showData(data.mk)
                 Log.d("tag","getMakanan"+data.mk)
+
             }
 
         }
@@ -76,6 +85,16 @@ class MakananPresenter(val view: ViewMakanan,
         doAsync {
            apiReposirtory.doRequest(MenuApi.getSave(idT,jumlah,IdM,bayar,kembali))
         }
+    }
+    fun insertDatabase(ctx:Context,nama :String,harga :String,jenis :String,ket :String,gambar :String){
+        doAsync {
+            val data = apiReposirtory.doRequest(MenuApi.insertDatabase(nama,harga,jenis,ket,gambar))
+        uiThread {
+            Toast.makeText(ctx,data,Toast.LENGTH_SHORT).show()
+        }
+
+        }
+
     }
 
 

@@ -1,4 +1,4 @@
-package com.ichirotech.kedaiichi
+package com.ichirotech.kedaiichi.REST_API
 
 import android.util.Log
 import java.net.URL

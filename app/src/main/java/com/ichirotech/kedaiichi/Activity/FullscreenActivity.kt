@@ -1,9 +1,10 @@
-package com.ichirotech.kedaiichi
+package com.ichirotech.kedaiichi.Activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import com.ichirotech.kedaiichi.R
 import kotlinx.android.synthetic.main.activity_fullscreen.*
 
 /**
